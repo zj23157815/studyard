@@ -1,0 +1,41 @@
+Python 的 List 如果有中文的話, 會印出 \xe4\xb8... 等等的編碼, 要如何印出中文呢(如下範例)? (Debug 方便查看)
+View Raw Code?
+
+    >>> a = ['中文', 'ab']
+    >>> print a
+    ['\xe4\xb8\xad\xe6\x96\x87', 'ab']
+
+Python 的 List 要印出 中文 編碼
+
+下述列出幾種作法:
+
+使用 decode('string_escape') 來達成
+View Raw Code?
+
+    >>> a = ['中文', 'ab']
+    >>> print a
+    ['\xe4\xb8\xad\xe6\x96\x87', 'ab']
+    >>> print str(a).decode('string_escape')
+    ['中文', 'ab']
+
+使用 uniout 來達成
+
+    安裝: sudo pip install uniout # Source code: https://github.com/moskytw/uniout
+
+View Raw Code?
+
+    >>> a = ['中文', 'ab']
+    >>> import uniout
+    >>> print a
+    ['中文', 'ab']
+
+直接取用 _uniout 來達成
+
+    從上述 uniout Project 直接取用 _uniout.py
+
+View Raw Code?
+
+    >>> a = ['中文', 'ab']
+    >>> import _uniout
+    >>> print _uniout.unescape(str(a), 'utf8')
+    ['中文', 'ab']

@@ -1,0 +1,30 @@
+本地操作
+进入目录(项目主目录)
+git init （初始化 仓库）
+
+成功后本目录就交给git管理（主要针对文本文件(源代码类)的跟踪)
+
+
+告诉git 要将xxx文件加入版本控制)
+git add xxx
+
+将文件提交的仓库
+git commit -m '注释内容'
+
+
+查看git当前状态
+git status
+
+查看做了哪些变动
+
+git status xxx（文件)
+
+
+远程库
+
+连接远程库
+git remote add origin git@github.com:zj23157815/jiehuo.git
+添加后远程库的名字就是origin git的默认规则
+添加后就可以把本地库推送到远程库上了
+
+git push -u origin master

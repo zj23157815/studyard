@@ -1,0 +1,36 @@
+1、Python连接mssql数据库编码问题
+
+　　python一直对中文支持的不好，最近老遇到编码问题，而且几乎没有通用的方案来解决这个问题，但是对常见的方法都试过之后，发现还是可以解决的，下面总结了常用的支持中文的编码问题（这些方法中可能其中一个就能解决问题，也可能是多个组合）。
+
+　　（1）、首先，要保证文件的开头要加上编码设置来说明文件的编码
+
+#encoding=utf-8
+　　（2）、然后，在连接数据的连接参数里加上字符集说明查询出的结果的编码，这个不加的后果可能是查询出的汉字字符都是问号
+
+conn=pymssql.connect(server='.',user='', password='',database='MyTest',charset='utf8')
+　　（3）、设置python系统的默认编码（对于文件来说，这招几乎屡试不爽，呵呵~~）
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+　　注意：上述编码是“utf8”，而不是“utf-8”，我也没弄明白，大部分情况下，这个无所谓的，但是这里我试了必须要是“utf8”
+
+ 　　一个简单的完整的python连接mssqlserver的例子如下（得安装pymssql包）：
+
+复制代码
+ 1 #encoding:utf8
+ 2 import sys
+ 3 reload(sys)
+ 4 sys.setdefaultencoding('utf8')
+ 5 import pymssql
+ 6 try:
+ 7     conn=pymssql.connect(server='.',user='', password='',database='MyTest',charset='utf8')
+ 8     sql="select * from UserInfo"
+ 9 
+10     cur=conn.cursor()
+11     cur.execute(sql)
+12     data=cur.fetchall()
+13     conn.close()
+14     print data
+15 except Exception,e:
+16     print e
